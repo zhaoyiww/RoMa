@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from romatch.utils.utils import get_grid, get_autocast_params
+from ....romatch.utils.utils import get_grid, get_autocast_params
 from .layers.block import Block
 from .layers.attention import MemEffAttention
 from .dinov2 import vit_large

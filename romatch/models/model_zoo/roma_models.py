@@ -1,10 +1,10 @@
 import warnings
 import torch.nn as nn
 import torch
-from romatch.models.matcher import *
-from romatch.models.transformer import Block, TransformerDecoder, MemEffAttention
-from romatch.models.encoders import *
-from romatch.models.tiny import TinyRoMa
+from ....romatch.models.matcher import *
+from ....romatch.models.transformer import Block, TransformerDecoder, MemEffAttention
+from ....romatch.models.encoders import *
+from ....romatch.models.tiny import TinyRoMa
 
 def tiny_roma_v1_model(weights = None, freeze_xfeat=False, exact_softmax=False, xfeat = None):
     model = TinyRoMa(
@@ -153,7 +153,6 @@ def roma_model(resolution, upsample_preds, device = None, weights=None, dinov2_w
     
     encoder = CNNandDinov2(
         cnn_kwargs = dict(
-            pretrained=False,
             amp = True),
         amp = True,
         use_vgg = True,

@@ -5,11 +5,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as tvm
 import gc
-from romatch.utils.utils import get_autocast_params
+from ...romatch.utils.utils import get_autocast_params
 
 
 class ResNet50(nn.Module):
-    def __init__(self, pretrained=False, high_res = False, weights = None, 
+    def __init__(self, high_res = False, weights = None,
                  dilation = None, freeze_bn = True, anti_aliased = False, early_exit = False, amp = False, amp_dtype = torch.float16) -> None:
         super().__init__()
         if dilation is None:
@@ -20,7 +20,7 @@ class ResNet50(nn.Module):
             if weights is not None:
                 self.net = tvm.resnet50(weights = weights,replace_stride_with_dilation=dilation)
             else:
-                self.net = tvm.resnet50(pretrained=pretrained,replace_stride_with_dilation=dilation)
+                self.net = tvm.resnet50(replace_stride_with_dilation=dilation)
             
         self.high_res = high_res
         self.freeze_bn = freeze_bn
@@ -59,9 +59,9 @@ class ResNet50(nn.Module):
                 pass
 
 class VGG19(nn.Module):
-    def __init__(self, pretrained=False, amp = False, amp_dtype = torch.float16) -> None:
+    def __init__(self, amp = False, amp_dtype = torch.float16) -> None:
         super().__init__()
-        self.layers = nn.ModuleList(tvm.vgg19_bn(pretrained=pretrained).features[:40])
+        self.layers = nn.ModuleList(tvm.vgg19_bn().features[:40])
         self.amp = amp
         self.amp_dtype = amp_dtype
 
